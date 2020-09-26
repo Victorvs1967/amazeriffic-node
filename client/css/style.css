@@ -1,0 +1,106 @@
+
+/* common */
+body {
+    background: #f9e933;
+    font-family: 'Roboto', sans-serif;
+    font-size: 18px;
+    line-height: 24px;
+}
+header, main {
+    background: white;
+}
+.container {
+    max-width: 90%;
+    margin: auto;
+    padding: 50px;
+}
+h1 {
+    font-family: 'Denk One', sans-serif;
+    font-size: 48px;
+}
+h2, h3, h4 {
+    font-family: 'Roboto', sans-serif;
+    font-weight: 700;
+    margin: 10px 0;
+}
+h2 {
+    font-size: 36px;
+    line-height: 42px;
+}
+h3 {
+    font-size: 28px;
+    line-height: 38px;
+}
+h4 {
+    font-size: 22px;
+    line-height: 32px;
+}
+a {
+    text-decoration: none;
+    color: black;
+}
+a:hover {
+    text-decoration: underline;
+}
+/* header */
+header .container {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+/* main */
+.tabs a span {
+    display: inline-block;
+    border-radius: 5px 5px 0 0;
+    width: 200px;
+    margin-right: 10px;
+    text-align: center;
+    background: #c0c0c0;
+    padding: 5px;
+}
+.tabs a span.active {
+    background: #e0e0e0;
+}
+.content {
+    width: 90%;
+    background: #e0e0e0;
+    padding: 40px;
+}
+.content li {
+    margin: 8px 0;
+    padding: 8px 12px;
+    border-radius: 6px;
+    background: #c0c0c0;
+    list-style: none;
+}
+.content button {
+    width: 15%;
+    padding: 6px 0 10px 0;
+    font-size: 18px;
+}
+.content input {
+    width: 80%;
+    padding: 10px 4px;
+    margin-right: 8px;
+    font-size: 18px;
+}
+/* footer */
+footer .container {
+    display: flex;
+    justify-content: space-between;
+}
+.contacts .site-map {
+    width: 200px;
+}
+.contact-text {
+    font-size: 14px;
+    line-height: 24px;
+}
+.map-nav {
+    display: flex;
+    justify-content: space-between;
+    width: 70%;
+}
+.map-item a {
+    font-size: 14px;
+}

@@ -1,0 +1,9 @@
+{
+    "name": "amazeriffic",
+    "description": "The best todo app.",
+    "version": "0.0.1",
+    "dependencies": {
+        "mongoose": "5.10.x",
+        "express": "4.17.x"
+    }
+}
