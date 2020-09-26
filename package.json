@@ -1,9 +1,27 @@
 {
-    "name": "amazeriffic",
-    "description": "The best todo app.",
-    "version": "0.0.1",
-    "dependencies": {
-        "mongoose": "5.10.x",
-        "express": "4.17.x"
-    }
+  "name": "amazeriffic",
+  "version": "1.0.0",
+  "description": "The best To Do web application",
+  "main": "server.js",
+  "dependencies": {
+    "express": "^4.17.1"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node server.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Victorvs1967/amazeriffic-node.git"
+  },
+  "keywords": [
+    "amazeriffic"
+  ],
+  "author": "vvs",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Victorvs1967/amazeriffic-node/issues"
+  },
+  "homepage": "https://github.com/Victorvs1967/amazeriffic-node#readme"
 }
