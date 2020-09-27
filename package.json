@@ -4,9 +4,10 @@
   "description": "The best To Do web application",
   "main": "server.js",
   "dependencies": {
-    "express": "^4.17.1"
-  },
-  "devDependencies": {},
+    "mongoose": "5.10.x",
+    "express": "4.17.x"
+},
+"devDependencies": {},
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "start": "node server.js"
