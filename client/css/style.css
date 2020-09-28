@@ -52,7 +52,7 @@ header .container {
 .tabs a span {
     display: inline-block;
     border-radius: 5px 5px 0 0;
-    width: 200px;
+    width: 15%;
     margin-right: 10px;
     text-align: center;
     background: #c0c0c0;
@@ -62,7 +62,8 @@ header .container {
     background: #e0e0e0;
 }
 .content {
-    width: 90%;
+    min-width: 90%;
+    margin: auto;
     background: #e0e0e0;
     padding: 40px;
 }
