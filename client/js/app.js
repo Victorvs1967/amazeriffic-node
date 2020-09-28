@@ -61,8 +61,7 @@ const main = (tasks) => {
                     tag.toDos.forEach((description) => {
                         $content.append($('<li>').text(description));
                     });
-                    $('main .content').append($tagName);
-                    $('main .content').append($content);
+                    callback($content, $tagName);
                 });
             });
         }
@@ -107,8 +106,13 @@ const main = (tasks) => {
             $('.tabs a span').removeClass('active');
             $spanItem.addClass('active');
             $('main .content').empty();
-            tab.content(($content) => {
-                $('main .content').append($content);
+            tab.content(($content, $tagName) => {
+                if ($tagName) {
+                    $('main .content').append($tagName);
+                    $('main .content').append($content);
+                } else {
+                    $('main .content').append($content);
+                }
             });
             return false;
         });
