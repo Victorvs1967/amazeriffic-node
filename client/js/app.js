@@ -56,12 +56,14 @@ const main = (tasks) => {
             $.get('/todos.json', (tasks) => {
                 const organizedByTag = organizedByTags(tasks);
                 organizedByTag.forEach((tag) => {
-                    let $tagName = $('<h4>').text(tag.name);
-                    let $content = $('<ul>');
+                    let $content = $('<div>');
+                    $content.append($('<h4>').text(tag.name));
+                    let $taskList = $('<ul>');
                     tag.toDos.forEach((description) => {
-                        $content.append($('<li>').text(description));
+                        $taskList.append($('<li>').text(description));
                     });
-                    callback($content, $tagName);
+                    $content.append($taskList);
+                    callback($content);
                 });
             });
         }
@@ -107,12 +109,7 @@ const main = (tasks) => {
             $spanItem.addClass('active');
             $('main .content').empty();
             tab.content(($content, $tagName) => {
-                if ($tagName) {
-                    $('main .content').append($tagName);
-                    $('main .content').append($content);
-                } else {
-                    $('main .content').append($content);
-                }
+                $('main .content').append($content);
             });
             return false;
         });
