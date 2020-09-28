@@ -12,4 +12,5 @@ mongoose.connect('mongodb://localhost/amazeriffic', {useNewUrlParser: true, useU
 http.createServer(app).listen(3000);
 
 app.get('/todos.json', ToDoController.index);
+app.get('/todos/:id', ToDoController.show);
 app.post('/todos', ToDoController.create);
