@@ -34,7 +34,9 @@ const main = (tasks) => {
                 toDos(tasks).reverse().forEach((todo) => {
                     $content.append($('<li>').text(todo));
                 });
-                callback($content);
+                callback(null, $content);
+            }).fail((jqXHR, textStatus, error) => {
+                callback(error, null);
             });
         }
     });
@@ -46,7 +48,9 @@ const main = (tasks) => {
                 toDos(tasks).forEach((todo) => {
                     $content.append($('<li>').text(todo));
                 });
-                callback($content);
+                callback(null, $content);
+            }).fail((jqXHR, textStatus, error) => {
+                callback(error, null);
             });
         }
     });
@@ -63,7 +67,9 @@ const main = (tasks) => {
                         $taskList.append($('<li>').text(description));
                     });
                     $content.append($taskList);
-                    callback($content);
+                    callback(null, $content);
+                }).fail((jqXHR, textStatus, error) => {
+                    callback(error, null);
                 });
             });
         }
@@ -79,8 +85,8 @@ const main = (tasks) => {
 
             const addFromInput = () => {
                 if ($('.content input.task').val() !== '' && $('.content input.tags').val() !== '') {
-                    const newToDos = {'description': $('.content input.task').val(), 'tags': $('.content input.tags').val().split(',')};
-                    $.post('/todos', newToDos, (response) => {
+                    const newToDos = {'description': $('.content input.task').val(), 'tags': $('.content input.tags').val().replace(/\s/g, '').split(',')};
+                    $.post('/todos', newToDos, () => {
                         $('.content input.task').val('');
                         $('.content input.tags').val('');
                         $('.tabs a:first-child span').trigger('click');
@@ -108,8 +114,12 @@ const main = (tasks) => {
             $('.tabs a span').removeClass('active');
             $spanItem.addClass('active');
             $('main .content').empty();
-            tab.content(($content, $tagName) => {
-                $('main .content').append($content);
+            tab.content((err, $content) => {
+                if (err !== null) {
+                    alert('Request error: ' + err);
+                } else {
+                    $('main .content').append($content);
+                }
             });
             return false;
         });
