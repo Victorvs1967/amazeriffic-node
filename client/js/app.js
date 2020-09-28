@@ -56,7 +56,7 @@ const main = (tasks) => {
             $.get('/todos.json', (tasks) => {
                 const organizedByTag = organizedByTags(tasks);
                 organizedByTag.forEach((tag) => {
-                    let $content = $('<div>');
+                    let $content = $('<ul>');
                     $content.append($('<h4>').text(tag.name));
                     let $taskList = $('<ul>');
                     tag.toDos.forEach((description) => {
