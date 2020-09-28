@@ -8,61 +8,62 @@ const organizedByTags = (todos) => {
         });
     });
     const tagObjects = tags.map((tag) => {
-        const toDoWishTags = [];
+        const toDoWithTags = [];
         todos.forEach((todo) => {
             if (todo.tags.indexOf(tag) !== -1) {
-                toDoWishTags.push(todo.description);
+                toDoWithTags.push(todo.description);
             }
         });
-        return {'name': tag, 'toDos': toDoWishTags};
+        return {'name': tag, 'toDos': toDoWithTags};
     });
     return tagObjects;
 };
 
+const toDos = (tasks) => {
+    return tasks.map((todo) => { return todo.description; });
+};
+
 const main = (tasks) => {
     'use strict';
-    let toDos;
     let tabs = [];
-
-    const reNewToDos = () => {
-        toDos = tasks.map((todo) => {
-            return todo.description;
-        });
-    };
-    reNewToDos();
     tabs.push({
         'name': 'New',
-        'content': () => {
-            let $content = $('<ul>');
-            toDos.reverse().forEach((todo) => {
-                $content.append($('<li>').text(todo));
+        'content': (callback) => {
+            $.get('/todos.json', (tasks) => {
+                let $content = $('<ul>');
+                toDos(tasks).reverse().forEach((todo) => {
+                    $content.append($('<li>').text(todo));
+                });
+                callback($content);
             });
-            $('main .content').append($content);
-            toDos.reverse();
         }
     });
     tabs.push({
         'name': 'Old',
-        'content': () => {
-            let $content = $('<ul>');
-            toDos.forEach((todo) => {
-                $content.append($('<li>').text(todo));
+        'content': (callback) => {
+            $.get('/todos.json', (tasks) => {
+                let $content = $('<ul>');
+                toDos(tasks).forEach((todo) => {
+                    $content.append($('<li>').text(todo));
+                });
+                callback($content);
             });
-            $('main .content').append($content);    
         }
     });
     tabs.push({
         'name': 'Tabs',
-        'content': () => {
-            const organizedByTag = organizedByTags(tasks);
-            organizedByTag.forEach((tag) => {
-                let $tagName = $('<h4>').text(tag.name);
-                let $content = $('<ul>');
-                tag.toDos.forEach((description) => {
-                    $content.append($('<li>').text(description));
+        'content': (callback) => {
+            $.get('/todos.json', (tasks) => {
+                const organizedByTag = organizedByTags(tasks);
+                organizedByTag.forEach((tag) => {
+                    let $tagName = $('<h4>').text(tag.name);
+                    let $content = $('<ul>');
+                    tag.toDos.forEach((description) => {
+                        $content.append($('<li>').text(description));
+                    });
+                    $('main .content').append($tagName);
+                    $('main .content').append($content);
                 });
-                $('main .content').append($tagName);
-                $('main .content').append($content);
             });
         }
     });
@@ -79,15 +80,13 @@ const main = (tasks) => {
                 if ($('.content input.task').val() !== '' && $('.content input.tags').val() !== '') {
                     const newToDos = {'description': $('.content input.task').val(), 'tags': $('.content input.tags').val().split(',')};
                     $.post('/todos', newToDos, (response) => {
-                        console.log('We send and recive data from server.');
-                        console.log(response);
+                        $('.content input.task').val('');
+                        $('.content input.tags').val('');
+                        $('.tabs a:first-child span').trigger('click');
                     });
-                    tasks.push(newToDos);
-                    reNewToDos();
-                    $('.content input.task').val('');
-                    $('.content input.tags').val('');
                 }
             };
+
             $('.content button').on('click', () => {
                 addFromInput();
             });
@@ -108,15 +107,18 @@ const main = (tasks) => {
             $('.tabs a span').removeClass('active');
             $spanItem.addClass('active');
             $('main .content').empty();
-            $('main .content').append(tab.content());
+            tab.content(($content) => {
+                $('main .content').append($content);
+            });
             return false;
         });
     });
 
     $('.tabs a:first-child span').trigger('click');
+
 };
 $(document).ready(() => {
-    $.getJSON('/todo.json', (tasks) => {
+    $.getJSON('/todos.json', (tasks) => {
         main(tasks);
     });
 });
