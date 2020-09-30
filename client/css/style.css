@@ -68,11 +68,16 @@ header .container {
     padding: 40px;
 }
 .content li {
+    display: flex;
+    justify-content: space-between;
     margin: 8px 0;
     padding: 8px 12px;
     border-radius: 6px;
     background: #c0c0c0;
     list-style: none;
+}
+.content li a {
+    color: red;
 }
 .content button {
     width: 15%;

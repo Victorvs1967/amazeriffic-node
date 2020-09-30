@@ -20,7 +20,7 @@ const organizedByTags = (todos) => {
 };
 
 const toDos = (tasks) => {
-    return tasks.map((todo) => { return todo.description; });
+    return tasks.map((todo) => { return {'description': todo.description, 'id': todo._id}; });
 };
 
 const main = (tasks) => {
@@ -32,7 +32,10 @@ const main = (tasks) => {
             $.get('/todos.json', (tasks) => {
                 let $content = $('<ul>');
                 toDos(tasks).reverse().forEach((todo) => {
-                    $content.append($('<li>').text(todo));
+                    let $listItem = $('<li>').text(todo.description);
+                    let $itemLink = $('<a>').attr('href', `todos/${todo.id}`).text('Delete');
+                    $listItem.append($itemLink);
+                    $content.append($listItem);
                 });
                 callback(null, $content);
             }).fail((jqXHR, textStatus, error) => {
@@ -46,7 +49,10 @@ const main = (tasks) => {
             $.get('/todos.json', (tasks) => {
                 let $content = $('<ul>');
                 toDos(tasks).forEach((todo) => {
-                    $content.append($('<li>').text(todo));
+                    let $listItem = $('<li>').text(todo.description);
+                    let $itemLink = $('<a>').attr('href', `todos/${todo.id}`).text('Delete');
+                    $listItem.append($itemLink);
+                    $content.append($listItem);
                 });
                 callback(null, $content);
             }).fail((jqXHR, textStatus, error) => {
@@ -55,7 +61,7 @@ const main = (tasks) => {
         }
     });
     tabs.push({
-        'name': 'Tabs',
+        'name': 'Tags',
         'content': (callback) => {
             $.get('/todos.json', (tasks) => {
                 const organizedByTag = organizedByTags(tasks);
@@ -68,9 +74,9 @@ const main = (tasks) => {
                     });
                     $content.append($taskList);
                     callback(null, $content);
-                }).fail((jqXHR, textStatus, error) => {
-                    callback(error, null);
                 });
+            }).fail((jqXHR, textStatus, error) => {
+                callback(error, null);
             });
         }
     });

@@ -4,8 +4,8 @@
   "description": "The best To Do web application",
   "main": "server.js",
   "dependencies": {
-    "mongoose": "5.10.x",
-    "express": "4.17.x"
+    "mongoose": "4.x",
+    "express": "4.x"
 },
 "devDependencies": {},
   "scripts": {
