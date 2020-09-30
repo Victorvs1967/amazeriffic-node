@@ -10,6 +10,7 @@ app.use(express.urlencoded({ extended: true}));
 
 mongoose.connect('mongodb://localhost/amazeriffic', {useMongoClient: true});
 
+const port = process.env.PORT || 3000;
 http.createServer(app).listen(3000);
 
 app.get('/todos.json', ToDoController.index);
